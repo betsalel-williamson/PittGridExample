@@ -1,0 +1,32 @@
+# HTCondor submit description file
+# file name: submit_description_file.txt
+# see http://research.cs.wisc.edu/htcondor/manual/v8.6/condor_submit.html for more information on the submit description file format
+
+universe                = vanilla
+executable              =  run_r_with_args_windows.bat
+
+requirements            = ((Arch =="INTEL" || Arch =="X86_64") && (OpSys == "WINNT51" || OpSys == "WINNT60" || OpSys == "WINNT61" || OpSys == "WINDOWS") && HasR == TRUE && regexp("\<123\.45\.\d+\.\d+:\d+\>", StartdIpAddr, "i") && regexp("\<123\.45\.678\.90:1234>|\<123\.12\.234\.12:1234>", StartdIpAddr, "i")== FALSE)
+
+should_transfer_files   = YES
+
+# These are the files that need to be transfered along with the executable. 
+# A comma-delimited list of all the files and directories to be transferred into the working directory for the job, before the job is started.
+# transfer_input_files = example.r, anotherFile.txt
+
+transfer_input_files    = example.r
+
+when_to_transfer_output = on_exit_or_evict
+
+Error                   = logs/err.$(cluster).$(process)
+Output                  = logs/out.$(cluster).$(process)
+Log                     = logs/log.$(cluster).$(process)
+
+notification            = Always
+notify_user             = abc123@pitt.edu
+
+## This shows an example of queuing multiple jobs with different input parameters
+Arguments               = 9 $(cluster) $(process)
+Queue 
+
+Arguments               = 2 $(cluster) $(process)
+Queue 
