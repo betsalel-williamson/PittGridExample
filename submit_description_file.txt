@@ -3,7 +3,7 @@
 # see http://research.cs.wisc.edu/htcondor/manual/v8.6/condor_submit.html for more information on the submit description file format
 
 universe                = vanilla
-executable              =  run_r_with_args_windows.bat
+executable              = run_r_with_args_windows.bat
 
 requirements            = ((Arch =="INTEL" || Arch =="X86_64") && (OpSys == "WINNT51" || OpSys == "WINNT60" || OpSys == "WINNT61" || OpSys == "WINDOWS") && HasR == TRUE && regexp("\<123\.45\.\d+\.\d+:\d+\>", StartdIpAddr, "i") && regexp("\<123\.45\.678\.90:1234>|\<123\.12\.234\.12:1234>", StartdIpAddr, "i")== FALSE)
 
